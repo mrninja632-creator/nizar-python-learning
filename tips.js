@@ -1,3 +1,6 @@
+let currentLanguage = 'en';
+let currentZoom = 100;
+
 const tips = {
     en: [
         { title: "Use List Comprehensions", desc: "Create lists more efficiently with list comprehensions instead of loops." },
@@ -9,7 +12,9 @@ const tips = {
         { title: "Context Managers", desc: "Use 'with' statements for proper resource management." },
         { title: "DRY Principle", desc: "Don't Repeat Yourself - write reusable functions instead of duplicate code." },
         { title: "Naming Conventions", desc: "Use clear, descriptive names for variables, functions, and classes." },
-        { title: "Testing", desc: "Write unit tests to ensure your code works correctly." }
+        { title: "Testing", desc: "Write unit tests to ensure your code works correctly." },
+        { title: "Error Handling", desc: "Always handle potential errors with try-except blocks." },
+        { title: "Code Comments", desc: "Write clear comments to explain complex logic and algorithms." }
     ],
     fr: [
         { title: "Utilisez les Compréhensions de Liste", desc: "Créez des listes plus efficacement avec les compréhensions de liste au lieu de boucles." },
@@ -21,7 +26,9 @@ const tips = {
         { title: "Gestionnaires de Contexte", desc: "Utilisez les instructions 'with' pour une gestion appropriée des ressources." },
         { title: "Principe DRY", desc: "Ne vous Répétez pas - écrivez des fonctions réutilisables au lieu de code en double." },
         { title: "Conventions de Nommage", desc: "Utilisez des noms clairs et descriptifs pour les variables, fonctions et classes." },
-        { title: "Test", desc: "Écrivez des tests unitaires pour vous assurer que votre code fonctionne correctement." }
+        { title: "Test", desc: "Écrivez des tests unitaires pour vous assurer que votre code fonctionne correctement." },
+        { title: "Gestion des Erreurs", desc: "Traitez toujours les erreurs potentielles avec des blocs try-except." },
+        { title: "Commentaires de Code", desc: "Écrivez des commentaires clairs pour expliquer la logique et les algorithmes complexes." }
     ],
     ar: [
         { title: "استخدم استيعاب القائمة", desc: "أنشئ القوائم بكفاءة أكبر باستخدام استيعاب القائمة بدلاً من الحلقات." },
@@ -33,7 +40,9 @@ const tips = {
         { title: "مديرو السياق", desc: "استخدم بيانات 'with' للإدارة الصحيحة للموارد." },
         { title: "مبدأ DRY", desc: "لا تكرر نفسك - اكتب دوال قابلة لإعادة الاستخدام بدلاً من الأكواد المكررة." },
         { title: "اتفاقيات التسمية", desc: "استخدم أسماء واضحة وموصوفة للمتغيرات والدوال والفئات." },
-        { title: "الاختبار", desc: "اكتب اختبارات الوحدة للتأكد من أن الكود الخاص بك يعمل بشكل صحيح." }
+        { title: "الاختبار", desc: "اكتب اختبارات الوحدة للتأكد من أن الكود الخاص بك يعمل بشكل صحيح." },
+        { title: "معالجة الأخطاء", desc: "تعامل دائماً مع الأخطاء المحتملة باستخدام كتل try-except." },
+        { title: "تعليقات الكود", desc: "اكتب تعليقات واضحة لشرح المنطق والخوارزميات المعقدة." }
     ]
 };
 
@@ -52,5 +61,46 @@ function renderTips() {
         </div>
     `).join('');
 }
+
+function changeLanguage(lang) {
+    currentLanguage = lang;
+    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+    renderTips();
+}
+
+function updateZoom() {
+    document.body.style.zoom = currentZoom + '%';
+    document.getElementById('zoomLevel').textContent = currentZoom + '%';
+}
+
+document.getElementById('zoomIn')?.addEventListener('click', () => {
+    if (currentZoom < 200) {
+        currentZoom += 10;
+        updateZoom();
+    }
+});
+
+document.getElementById('zoomOut')?.addEventListener('click', () => {
+    if (currentZoom > 50) {
+        currentZoom -= 10;
+        updateZoom();
+    }
+});
+
+window.addEventListener('scroll', () => {
+    const scrollBtn = document.getElementById('scrollToTop');
+    if (scrollBtn) {
+        if (window.pageYOffset > 300) {
+            scrollBtn.classList.add('show');
+        } else {
+            scrollBtn.classList.remove('show');
+        }
+    }
+});
+
+document.getElementById('scrollToTop')?.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+});
 
 renderTips();
