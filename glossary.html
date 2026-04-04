@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NIZAR - Python Glossary | 75+ Terms</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <div class="bg-decoration bg-decoration-1"></div>
+    <div class="bg-decoration bg-decoration-2"></div>
+
+    <nav>
+        <a href="index.html" class="logo">🐍 NIZAR</a>
+        <div class="nav-links">
+            <a href="glossary.html" class="nav-link active">📚 GLOSSARY</a>
+            <a href="tutorials.html" class="nav-link">🎓 TUTORIALS</a>
+            <a href="tips.html" class="nav-link">💡 TIPS & TRICKS</a>
+            <a href="resources.html" class="nav-link">🔗 RESOURCES</a>
+        </div>
+        <div class="language-switcher">
+            <button class="lang-btn active" onclick="changeLanguage('en')">EN</button>
+            <button class="lang-btn" onclick="changeLanguage('fr')">FR</button>
+            <button class="lang-btn" onclick="changeLanguage('ar')">AR</button>
+        </div>
+    </nav>
+
+    <header>
+        <h1 id="header-title">📚 Python Glossary</h1>
+        <p class="tagline" id="header-tagline">75+ Terms with Definitions in Multiple Languages</p>
+    </header>
+
+    <div class="container">
+        <div class="search-container">
+            <input type="text" class="search-input" id="searchInput" placeholder="🔍 Search terms...">
+            <div class="results-count" id="resultsCount"></div>
+        </div>
+        <div class="glossary" id="glossary"></div>
+        <div class="no-results" id="noResults" style="display: none;">❌ No terms found</div>
+    </div>
+
+    <button class="scroll-to-top" id="scrollToTop">↑</button>
+
+    <div class="zoom-controls">
+        <button class="zoom-btn" id="zoomOut" title="Zoom Out">−</button>
+        <div class="zoom-level" id="zoomLevel">100%</div>
+        <button class="zoom-btn" id="zoomIn" title="Zoom In">+</button>
+    </div>
+
+    <footer>
+        <p>🐍 NIZAR - Learn Python Like Never Before</p>
+        <p>© 2024 NIZAR Learning Platform. All Rights Reserved.</p>
+    </footer>
+
+    <script src="shared.js"></script>
+    <script src="glossary.js"></script>
+
+</body>
+
+</html>
