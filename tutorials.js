@@ -1,3 +1,5 @@
+let currentLanguage = 'en';
+
 const tutorials = {
     en: [
         { title: "Getting Started with Python", icon: "📖", desc: "Learn how to install Python and write your first program." },
@@ -12,14 +14,6 @@ const tutorials = {
         { title: "Object-Oriented Programming", icon: "🏗️", desc: "Create classes and objects for structured code." },
         { title: "Error Handling with Try-Except", icon: "🛡️", desc: "Handle errors gracefully in your programs." },
         { title: "Working with Modules", icon: "📦", desc: "Import and use Python modules and libraries." },
-        { title: "List Comprehensions", icon: "🎁", desc: "Create lists efficiently with concise syntax." },
-        { title: "Lambda Functions", icon: "⚡", desc: "Create small anonymous functions." },
-        { title: "Decorators and Higher-Order Functions", icon: "🎭", desc: "Enhance functions with decorators." },
-        { title: "Generators and Iterators", icon: "🔁", desc: "Create memory-efficient sequences." },
-        { title: "Working with APIs", icon: "🌐", desc: "Interact with web APIs using Python." },
-        { title: "Database Operations", icon: "🗄️", desc: "Connect and manage databases with Python." },
-        { title: "Web Development with Flask", icon: "🌍", desc: "Build web applications with Flask framework." },
-        { title: "Data Analysis with Pandas", icon: "📊", desc: "Analyze and manipulate data with Pandas." },
     ],
     fr: [
         { title: "Commencer avec Python", icon: "📖", desc: "Apprenez à installer Python et à écrire votre premier programme." },
@@ -34,14 +28,6 @@ const tutorials = {
         { title: "Programmation Orientée Objet", icon: "🏗️", desc: "Créez des classes et des objets pour un code structuré." },
         { title: "Gestion des Erreurs avec Try-Except", icon: "🛡️", desc: "Gérez les erreurs avec élégance dans vos programmes." },
         { title: "Travail avec les Modules", icon: "📦", desc: "Importez et utilisez les modules et bibliothèques Python." },
-        { title: "Compréhensions de Liste", icon: "🎁", desc: "Créez des listes efficacement avec une syntaxe concise." },
-        { title: "Fonctions Lambda", icon: "⚡", desc: "Créez de petites fonctions anonymes." },
-        { title: "Décorateurs et Fonctions d'Ordre Supérieur", icon: "🎭", desc: "Améliorez les fonctions avec des décorateurs." },
-        { title: "Générateurs et Itérateurs", icon: "🔁", desc: "Créez des séquences efficaces en mémoire." },
-        { title: "Travailler avec les API", icon: "🌐", desc: "Interagissez avec les API Web à l'aide de Python." },
-        { title: "Opérations de Base de Données", icon: "🗄️", desc: "Connectez et gérez des bases de données avec Python." },
-        { title: "Développement Web avec Flask", icon: "🌍", desc: "Créez des applications Web avec le framework Flask." },
-        { title: "Analyse de Données avec Pandas", icon: "📊", desc: "Analysez et manipulez les données avec Pandas." },
     ],
     ar: [
         { title: "البدء مع بايثون", icon: "📖", desc: "تعلم كيفية تثبيت بايثون وكتابة برنامجك الأول." },
@@ -56,14 +42,6 @@ const tutorials = {
         { title: "البرمجة الموجهة للكائنات", icon: "🏗️", desc: "أنشئ فئات وكائنات للحصول على كود منظم." },
         { title: "معالجة الأخطاء مع Try-Except", icon: "🛡️", desc: "تعامل مع الأخطاء بسلاسة في برامجك." },
         { title: "العمل مع الوحدات", icon: "📦", desc: "استيراد واستخدام وحدات ومكتبات بايثون." },
-        { title: "استيعاب القوائم", icon: "🎁", desc: "أنشئ قوائم بكفاءة باستخدام بناء الجملة المختصر." },
-        { title: "دوال Lambda", icon: "⚡", desc: "أنشئ دوال مجهولة صغيرة." },
-        { title: "الديكوريتور والدوال من الدرجة العليا", icon: "🎭", desc: "عزّز الدوال باستخدام الديكوريتور." },
-        { title: "المولدات والمكررات", icon: "🔁", desc: "أنشئ سلاسل فعالة في الذاكرة." },
-        { title: "العمل مع واجهات برمجة التطبيقات", icon: "🌐", desc: "تفاعل مع واجهات برمجة تطبيقات الويب باستخدام بايثون." },
-        { title: "عمليات قاعدة البيانات", icon: "🗄️", desc: "الاتصال وإدارة قواعد البيانات باستخدام بايثون." },
-        { title: "تطوير الويب مع Flask", icon: "🌍", desc: "بناء تطبيقات الويب باستخدام إطار عمل Flask." },
-        { title: "تحليل البيانات باستخدام Pandas", icon: "📊", desc: "تحليل ومعالجة البيانات باستخدام Pandas." },
     ]
 };
 
@@ -83,5 +61,47 @@ function renderTutorials() {
     `).join('');
 }
 
+function changeLanguage(lang) {
+    currentLanguage = lang;
+    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+    renderTutorials();
+}
+
+let currentZoom = 100;
+
+function updateZoom() {
+    document.body.style.zoom = currentZoom + '%';
+    document.getElementById('zoomLevel').textContent = currentZoom + '%';
+}
+
+document.getElementById('zoomIn')?.addEventListener('click', () => {
+    if (currentZoom < 200) {
+        currentZoom += 10;
+        updateZoom();
+    }
+});
+
+document.getElementById('zoomOut')?.addEventListener('click', () => {
+    if (currentZoom > 50) {
+        currentZoom -= 10;
+        updateZoom();
+    }
+});
+
+window.addEventListener('scroll', () => {
+    const scrollBtn = document.getElementById('scrollToTop');
+    if (scrollBtn) {
+        if (window.pageYOffset > 300) {
+            scrollBtn.classList.add('show');
+        } else {
+            scrollBtn.classList.remove('show');
+        }
+    }
+});
+
+document.getElementById('scrollToTop')?.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
 renderTutorials();
-z
