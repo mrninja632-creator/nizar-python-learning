@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NIZAR - Python Resources</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
 
     <div class="bg-decoration bg-decoration-1"></div>
@@ -27,8 +29,8 @@
     </nav>
 
     <header>
-        <h1 id="header-title">🔗 Learning Resources</h1>
-        <p class="tagline" id="header-tagline">Curated Links & Platforms for Python Learning</p>
+        <h1 id="header-title" data-translate="resource-header-title">🔗 Resources</h1>
+        <p class="tagline" id="header-tagline" data-translate="resource-header-tagline">Essential Learning Resources</p>
     </header>
 
     <div class="container">
@@ -44,12 +46,21 @@
     </div>
 
     <footer>
-        <p>🐍 NIZAR - Learn Python Like Never Before</p>
-        <p>© 2024 NIZAR Learning Platform. All Rights Reserved.</p>
+        <p data-translate="footer-title">🐍 NIZAR - Learn Python Like Never Before</p>
+        <p data-translate="footer-copy">© 2024 NIZAR Learning Platform. All Rights Reserved.</p>
     </footer>
 
+    <script src="translations.js"></script>
     <script src="shared.js"></script>
     <script src="resources.js"></script>
+    <script>
+        const savedLang = localStorage.getItem('niзarLanguage') || 'en';
+        if (savedLang !== 'en') {
+            applyTranslations(savedLang);
+            document.querySelector(`button[onclick="changeLanguage('${savedLang}')"]`)?.classList.add('active');
+        }
+    </script>
 
 </body>
+
 </html>
