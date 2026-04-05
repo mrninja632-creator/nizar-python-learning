@@ -8,7 +8,7 @@ const tutorialContent = [
     { en: "Conditional Statements (If/Else)", fr: "Déclarations Conditionnelles (If/Else)", ar: "الجمل الشرطية", en_desc: "Master if, elif, and else statements to make decisions in your code.", fr_desc: "Maîtrisez les instructions if, elif et else pour prendre des décisions dans votre code.", ar_desc: "أتقن جمل if و elif و else لاتخاذ قرارات في أكوادك." },
     { en: "Loops: For and While", fr: "Boucles: For et While", ar: "الحلقات: For و While", en_desc: "Learn how to repeat code blocks efficiently using for loops and while loops.", fr_desc: "Apprenez comment répéter les blocs de code efficacement en utilisant les boucles for et while.", ar_desc: "تعلم كيفية تكرار كتل الأكواد باستخدام حلقات for و while." },
     { en: "Lists and List Methods", fr: "Listes et Méthodes de Listes", ar: "القوائم وطرقها", en_desc: "Work with Python lists, learn list methods, and understand list comprehensions.", fr_desc: "Travaillez avec les listes Python, apprenez les méthodes de liste et comprenez les compréhensions de liste.", ar_desc: "اعمل مع قوائم بايثون وتعلم طرقها وافهم استيعاب القائمة." },
-    { en: "Dictionaries and Key-Value Pairs", fr: "Dictionnaires et Paires Clé-Valeur", ar: "القواموس وأزواج المفتا�� والقيمة", en_desc: "Understand dictionaries and how to store and retrieve data using key-value pairs.", fr_desc: "Comprenez les dictionnaires et comment stocker et récupérer des données en utilisant des paires clé-valeur.", ar_desc: "افهم القواموس وكيفية تخزين واسترجاع البيانات باستخدام أزواج المفتاح والقيمة." },
+    { en: "Dictionaries and Key-Value Pairs", fr: "Dictionnaires et Paires Clé-Valeur", ar: "القواموس وأزواج المفتاح والقيمة", en_desc: "Understand dictionaries and how to store and retrieve data using key-value pairs.", fr_desc: "Comprenez les dictionnaires et comment stocker et récupérer des données en utilisant des paires clé-valeur.", ar_desc: "افهم القواموس وكيفية تخزين واسترجاع البيانات باستخدام أزواج المفتاح والقيمة." },
     { en: "Defining Functions", fr: "Définir des Fonctions", ar: "تعريف الدوال", en_desc: "Learn how to define functions, pass parameters, and return values.", fr_desc: "Apprenez à définir des fonctions, à transmettre des paramètres et à retourner des valeurs.", ar_desc: "تعلم كيفية تعريف الدوال ومرور المعاملات وإرجاع القيم." },
     { en: "Handling Errors with Try-Except", fr: "Gestion des Erreurs avec Try-Except", ar: "التعامل مع الأخطاء", en_desc: "Learn to handle errors gracefully using try-except blocks to prevent crashes.", fr_desc: "Apprenez à gérer les erreurs avec élégance en utilisant les blocs try-except pour éviter les plantages.", ar_desc: "تعلم التعامل مع الأخطاء باستخدام كتل try-except لمنع التعطل." },
     { en: "Working with Files", fr: "Travailler avec des Fichiers", ar: "العمل مع الملفات", en_desc: "Learn how to read from and write to files using Python's file operations.", fr_desc: "Apprenez à lire et écrire des fichiers en utilisant les opérations de fichiers de Python.", ar_desc: "تعلم كيفية القراءة من الملفات والكتابة إليها باستخدام عمليات الملفات." },
@@ -17,7 +17,7 @@ const tutorialContent = [
 ];
 
 const colors = ['color-1', 'color-2', 'color-3', 'color-4'];
-
+qq
 function renderTutorials(items = tutorialContent) {
     const tutorialsDiv = document.getElementById('tutorials');
     if (!tutorialsDiv) return;
