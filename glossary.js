@@ -1,5 +1,5 @@
-let currentLanguage = 'en';
-let currentZoom = 100;
+let currentLanguage = localStorage.getItem('niзarLanguage') || 'en';
+let currentZoom = parseInt(localStorage.getItem('niзarZoom')) || 100;
 
 const pythonTerms = [
     { en: "Variable", fr: "Variable", ar: "متغير", en_def: "A named storage location that holds a value. Variables can store different data types like integers, strings, and lists.", fr_def: "Un emplacement de stockage nommé qui contient une valeur.", ar_def: "موقع تخزين مسمى يحتوي على قيمة." },
@@ -10,7 +10,7 @@ const pythonTerms = [
     { en: "Loop", fr: "Boucle", ar: "حلقة", en_def: "A control structure that repeats a block of code multiple times until a condition is met (for loop, while loop).", fr_def: "Une structure de contrôle qui répète un bloc de code plusieurs fois.", ar_def: "هيكل تحكم يكرر كتلة من الأكواد عدة مرات." },
     { en: "If Statement", fr: "Instruction If", ar: "بيان If", en_def: "A conditional statement that executes code only if a specific condition is true. Uses 'if', 'elif', 'else'.", fr_def: "Une instruction conditionnelle qui exécute le code selon une condition.", ar_def: "بيان شرطي ينفذ الكود بناءً على شرط." },
     { en: "List", fr: "Liste", ar: "قائمة", en_def: "An ordered collection of items enclosed in square brackets. Lists are mutable and can contain any data type.", fr_def: "Une collection d'éléments ordonnée entre crochets.", ar_def: "مجموعة مرتبة من العناصر بين قوسين مربعة." },
-    { en: "Dictionary", fr: "Dictionnaire", ar: "قاموس", en_def: "An unordered collection of key-value pairs enclosed in curly braces. Dictionaries provide fast lookups by key.", fr_def: "Une collection non ordonnée de paires clé-valeur entre accolades.", ar_def: "مجموعة غير مرتبة من أزواج المفتاح ��القيمة بين أقواس." },
+    { en: "Dictionary", fr: "Dictionnaire", ar: "قاموس", en_def: "An unordered collection of key-value pairs enclosed in curly braces. Dictionaries provide fast lookups by key.", fr_def: "Une collection non ordonnée de paires clé-valeur entre accolades.", ar_def: "مجموعة غير مرتبة من أزواج المفتاح والقيمة بين أقواس." },
     { en: "String", fr: "Chaîne de Caractères", ar: "نص", en_def: "A sequence of characters enclosed in quotes. Strings are immutable and support various operations like concatenation.", fr_def: "Une séquence de caractères entre guillemets.", ar_def: "سلسلة من الأحرف بين علامات الاقتباس." },
     { en: "Integer", fr: "Entier", ar: "عدد صحيح", en_def: "A whole number data type that represents positive, negative, or zero values without decimal points.", fr_def: "Un type de données entier sans points décimaux.", ar_def: "نوع بيانات عدد صحيح بدون نقاط عشرية." },
     { en: "Float", fr: "Flottant", ar: "عدد عشري", en_def: "A number data type that includes decimal points. Used for mathematical calculations requiring precision.", fr_def: "Un type de données numérique qui inclut des points décimaux.", ar_def: "نوع بيانات رقمي يتضمن نقاط عشرية." },
@@ -21,14 +21,13 @@ const pythonTerms = [
     { en: "Slice", fr: "Tranche", ar: "شريحة", en_def: "A way to extract a portion of a sequence using start:stop:step notation. Example: list[1:4] gets items 1, 2, 3.", fr_def: "Un moyen d'extraire une partie d'une séquence en utilisant une notation comme [début:fin].", ar_def: "طريقة لاستخراج جزء من سلسلة باستخدام رمز مثل [البداية:النهاية]." },
     { en: "Method", fr: "Méthode", ar: "طريقة", en_def: "A function associated with an object. Methods perform actions on objects. Example: string.upper() converts to uppercase.", fr_def: "Une fonction associée à un objet qui effectue des actions sur l'objet.", ar_def: "دالة مرتبطة بكائن تؤدي إجراءات على الكائن." },
     { en: "Class", fr: "Classe", ar: "فئة", en_def: "A blueprint for creating objects. Classes define attributes and methods that objects created from them will have.", fr_def: "Un modèle pour créer des objets avec des attributs et des méthodes spécifiques.", ar_def: "نموذج لإنشاء كائنات ذات خصائص وأساليب محددة." },
-    { en: "Object", fr: "Objet", ar: "��ائن", en_def: "An instance of a class containing data (attributes) and behavior (methods). Everything in Python is an object.", fr_def: "Une instance d'une classe contenant des données et un comportement.", ar_def: "مثيل من فئة يحتوي على بيانات وسلوك." },
+    { en: "Object", fr: "Objet", ar: "كائن", en_def: "An instance of a class containing data (attributes) and behavior (methods). Everything in Python is an object.", fr_def: "Une instance d'une classe contenant des données et un comportement.", ar_def: "مثيل من فئة يحتوي على بيانات وسلوك." },
     { en: "Parameter", fr: "Paramètre", ar: "معامل", en_def: "A variable in a function definition that receives a value when the function is called. Also called an argument.", fr_def: "Une variable dans la définition d'une fonction qui reçoit une valeur lors de l'appel.", ar_def: "متغير في تعريف الدالة يستقبل قيمة عند الاستدعاء." },
     { en: "Return", fr: "Retourner", ar: "العودة", en_def: "A statement that sends a value back from a function to the code that called it. Ends function execution.", fr_def: "Une instruction qui renvoie une valeur d'une fonction.", ar_def: "بيان يرسل قيمة من دالة." },
     { en: "Exception", fr: "Exception", ar: "استثناء", en_def: "An error that occurs during program execution. Python handles exceptions with try-except blocks.", fr_def: "Une erreur qui se produit lors de l'exécution du programme.", ar_def: "خطأ يحدث أثناء تنفيذ البرنامج." },
     { en: "Try-Except", fr: "Try-Except", ar: "محاولة-استثناء", en_def: "A control structure that catches and handles exceptions gracefully without crashing the program.", fr_def: "Une structure de contrôle qui capture et gère les exceptions avec élégance.", ar_def: "هيكل تحكم يعالج الأخطاء بشكل فعال." },
     { en: "Lambda", fr: "Lambda", ar: "لامدا", en_def: "A small anonymous function defined with 'lambda'. Used for short functions passed as arguments.", fr_def: "Une petite fonction anonyme définie en une seule ligne.", ar_def: "دالة مجهولة صغيرة تُعرّف في سطر واحد." },
     { en: "List Comprehension", fr: "Compréhension de Liste", ar: "استيعاب القائمة", en_def: "A concise way to create lists using a single line. Example: [x*2 for x in range(5)] creates [0,2,4,6,8].", fr_def: "Un moyen concis de créer des listes en utilisant une seule ligne de code.", ar_def: "طريقة موجزة لإنشاء قوائم باستخدام سطر واحد من الكود." },
-    { en: "Dictionary Comprehension", fr: "Compréhension de Dictionnaire", ar: "استيعاب القاموس", en_def: "A concise way to create dictionaries. Example: {x: x**2 for x in range(5)} creates a dictionary of squares.", fr_def: "Un moyen concis de créer des dictionnaires.", ar_def: "طريقة موجزة لإنشاء قواموس." },
     { en: "Generator", fr: "Générateur", ar: "مولد", en_def: "A function that yields values one at a time instead of returning all at once. Uses 'yield' keyword for efficiency.", fr_def: "Une fonction qui génère des valeurs une à la fois pour l'efficacité de la mémoire.", ar_def: "دالة تنتج القيم واحدة تلو الأخرى لكفاءة الذاكرة." },
     { en: "Decorator", fr: "Décorateur", ar: "ديكوريتور", en_def: "A function that modifies or enhances other functions or classes without permanently changing their source code.", fr_def: "Une fonction qui modifie d'autres fonctions ou classes sans modifier le code source.", ar_def: "دالة تعدل الدوال الأخرى أو الفئات دون تغيير الكود المصدري." },
     { en: "Module", fr: "Module", ar: "وحدة", en_def: "A Python file containing definitions and statements. Modules can be imported and reused in other programs.", fr_def: "Un fichier Python contenant des définitions et des instructions.", ar_def: "ملف بايثون يحتوي على التعريفات والبيانات." },
@@ -61,14 +60,18 @@ function renderGlossary(terms = pythonTerms) {
     const glossaryDiv = document.getElementById('glossary');
     const noResultsDiv = document.getElementById('noResults');
 
+    if (!glossaryDiv) return;
+
     if (terms.length === 0) {
         glossaryDiv.innerHTML = '';
-        noResultsDiv.style.display = 'block';
-        document.getElementById('resultsCount').innerHTML = '';
+        if (noResultsDiv) noResultsDiv.style.display = 'block';
+        const resultsCount = document.getElementById('resultsCount');
+        if (resultsCount) resultsCount.innerHTML = '';
         return;
     }
 
-    noResultsDiv.style.display = 'none';
+    if (noResultsDiv) noResultsDiv.style.display = 'none';
+    
     glossaryDiv.innerHTML = terms.map((term, idx) => {
         const lang = currentLanguage;
         const termName = term[lang];
@@ -85,58 +88,21 @@ function renderGlossary(terms = pythonTerms) {
         `;
     }).join('');
 
-    document.getElementById('resultsCount').innerHTML = `📊 ${terms.length} of ${pythonTerms.length} terms`;
+    const resultsCount = document.getElementById('resultsCount');
+    if (resultsCount) resultsCount.innerHTML = `📊 ${terms.length} of ${pythonTerms.length} terms`;
 }
 
-document.getElementById('searchInput')?.addEventListener('keyup', (e) => {
-    const searchTerm = e.target.value.toLowerCase();
-    const lang = currentLanguage;
-    const filtered = pythonTerms.filter(term =>
-        term[lang].toLowerCase().includes(searchTerm) ||
-        term[`${lang}_def`].toLowerCase().includes(searchTerm)
-    );
-    renderGlossary(filtered);
-});
-
-function changeLanguage(lang) {
-    currentLanguage = lang;
-    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-    event.target.classList.add('active');
-    renderGlossary();
+const searchInput = document.getElementById('searchInput');
+if (searchInput) {
+    searchInput.addEventListener('keyup', (e) => {
+        const searchTerm = e.target.value.toLowerCase();
+        const lang = currentLanguage;
+        const filtered = pythonTerms.filter(term =>
+            term[lang].toLowerCase().includes(searchTerm) ||
+            term[`${lang}_def`].toLowerCase().includes(searchTerm)
+        );
+        renderGlossary(filtered);
+    });
 }
-
-function updateZoom() {
-    document.body.style.zoom = currentZoom + '%';
-    document.getElementById('zoomLevel').textContent = currentZoom + '%';
-}
-
-document.getElementById('zoomIn')?.addEventListener('click', () => {
-    if (currentZoom < 200) {
-        currentZoom += 10;
-        updateZoom();
-    }
-});
-
-document.getElementById('zoomOut')?.addEventListener('click', () => {
-    if (currentZoom > 50) {
-        currentZoom -= 10;
-        updateZoom();
-    }
-});
-
-window.addEventListener('scroll', () => {
-    const scrollBtn = document.getElementById('scrollToTop');
-    if (scrollBtn) {
-        if (window.pageYOffset > 300) {
-            scrollBtn.classList.add('show');
-        } else {
-            scrollBtn.classList.remove('show');
-        }
-    }
-});
-
-document.getElementById('scrollToTop')?.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-});
 
 renderGlossary();
