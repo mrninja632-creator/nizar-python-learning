@@ -1,66 +1,38 @@
 let currentLanguage = localStorage.getItem('niзarLanguage') || 'en';
 
-const tips = {
-    en: [
-        { title: "Use List Comprehensions", desc: "Create lists more efficiently with list comprehensions instead of loops." },
-        { title: "Virtual Environments", desc: "Always use virtual environments to manage project dependencies separately." },
-        { title: "PEP 8 Style Guide", desc: "Follow Python's official style guide for clean and readable code." },
-        { title: "Use F-strings", desc: "Use f-strings for easier and more readable string formatting." },
-        { title: "Docstrings", desc: "Always write docstrings to document your functions and classes." },
-        { title: "Type Hints", desc: "Use type hints to make your code more readable and catch errors early." },
-        { title: "Context Managers", desc: "Use 'with' statements for proper resource management." },
-        { title: "DRY Principle", desc: "Don't Repeat Yourself - write reusable functions instead of duplicate code." },
-        { title: "Naming Conventions", desc: "Use clear, descriptive names for variables, functions, and classes." },
-        { title: "Testing", desc: "Write unit tests to ensure your code works correctly." },
-        { title: "Error Handling", desc: "Always handle potential errors with try-except blocks." },
-        { title: "Code Comments", desc: "Write clear comments to explain complex logic and algorithms." }
-    ],
-    fr: [
-        { title: "Utilisez les Compréhensions de Liste", desc: "Créez des listes plus efficacement avec les compréhensions de liste au lieu de boucles." },
-        { title: "Environnements Virtuels", desc: "Utilisez toujours des environnements virtuels pour gérer les dépendances du projet séparément." },
-        { title: "Guide de Style PEP 8", desc: "Suivez le guide de style officiel de Python pour un code propre et lisible." },
-        { title: "Utilisez les F-chaînes", desc: "Utilisez les f-chaînes pour un formatage de chaîne plus facile et plus lisible." },
-        { title: "Docstrings", desc: "Écrivez toujours des docstrings pour documenter vos fonctions et classes." },
-        { title: "Indices de Type", desc: "Utilisez les indices de type pour rendre votre code plus lisible et détecter les erreurs tôt." },
-        { title: "Gestionnaires de Contexte", desc: "Utilisez les instructions 'with' pour une gestion appropriée des ressources." },
-        { title: "Principe DRY", desc: "Ne vous Répétez pas - écrivez des fonctions réutilisables au lieu de code en double." },
-        { title: "Conventions de Nommage", desc: "Utilisez des noms clairs et descriptifs pour les variables, fonctions et classes." },
-        { title: "Test", desc: "Écrivez des tests unitaires pour vous assurer que votre code fonctionne correctement." },
-        { title: "Gestion des Erreurs", desc: "Traitez toujours les erreurs potentielles avec des blocs try-except." },
-        { title: "Commentaires de Code", desc: "Écrivez des commentaires clairs pour expliquer la logique et les algorithmes complexes." }
-    ],
-    ar: [
-        { title: "استخدم استيعاب القائمة", desc: "أنشئ القوائم بكفاءة أكبر باستخدام استيعاب القائمة بدلاً من الحلقات." },
-        { title: "البيئات الافتراضية", desc: "استخدم دائماً البيئات الافتراضية لإدارة تبعيات المشروع بشكل منفصل." },
-        { title: "دليل نمط PEP 8", desc: "اتبع دليل نمط Python الرسمي للحصول على كود نظيف وقابل للقراءة." },
-        { title: "استخدم F-strings", desc: "استخدم f-strings لتنسيق نصوص أسهل وأكثر قابلية للقراءة." },
-        { title: "Docstrings", desc: "اكتب دائماً docstrings لتوثيق الدوال والفئات الخاصة بك." },
-        { title: "تلميحات النوع", desc: "استخدم تلميحات النوع لجعل الكود أكثر قابلية للقراءة واكتشاف الأخطاء مبكراً." },
-        { title: "مديرو السياق", desc: "استخدم بيانات 'with' للإدارة الصحيحة للموارد." },
-        { title: "مبدأ DRY", desc: "لا تكرر نفسك - اكتب دوال قابلة لإعادة الاستخدام بدلاً من الأكواد المكررة." },
-        { title: "اتفاقيات التسمية", desc: "استخدم أسماء واضحة وموصوفة للمتغيرات والدوال والفئات." },
-        { title: "الاختبار", desc: "اكتب اختبارات الوحدة للتأكد من أن الكود الخاص بك يعمل بشكل صحيح." },
-        { title: "معالجة الأخطاء", desc: "تعامل دائماً مع الأخطاء المحتملة باستخدام كتل try-except." },
-        { title: "تعليقات الكود", desc: "اكتب تعليقات واضحة لشرح المنطق والخوارزميات المعقدة." }
-    ]
-};
+const tipsContent = [
+    { en: "Use List Comprehensions", fr: "Utilisez les Compréhensions de Liste", ar: "استخدم استيعاب القائمة", en_desc: "Make your code cleaner and faster with list comprehensions instead of loops.", fr_desc: "Rendez votre code plus propre et plus rapide avec les compréhensions de liste.", ar_desc: "اجعل أكوادك أنظف وأسرع باستخدام استيعاب القائمة." },
+    { en: "Follow PEP 8 Style Guide", fr: "Suivez le Guide de Style PEP 8", ar: "اتبع دليل أسلوب PEP 8", en_desc: "Write readable code by following Python's official style guidelines.", fr_desc: "Écrivez du code lisible en suivant les directives de style officielles de Python.", ar_desc: "اكتب أكواداً قابلة للقراءة باتباع معايير نمط بايثون الرسمية." },
+    { en: "Use Virtual Environments", fr: "Utilisez les Environnements Virtuels", ar: "استخدم البيئات الافتراضية", en_desc: "Isolate projects to avoid dependency conflicts and keep code organized.", fr_desc: "Isolez les projets pour éviter les conflits de dépendances et garder le code organisé.", ar_desc: "عزل المشاريع لتجنب تضارب التبعيات والحفاظ على تنظيم الأكواد." },
+    { en: "Comment Your Code", fr: "Commentez Votre Code", ar: "علق على أكوادك", en_desc: "Write clear comments to explain complex logic and help future developers.", fr_desc: "Écrivez des commentaires clairs pour expliquer la logique complexe et aider les développeurs.", ar_desc: "اكتب تعليقات واضحة لشرح المنطق المعقد ومساعدة المطورين الآخرين." },
+    { en: "Avoid Global Variables", fr: "Évitez les Variables Globales", ar: "تجنب المتغيرات العامة", en_desc: "Keep variables local when possible to prevent bugs and side effects.", fr_desc: "Gardez les variables locales autant que possible pour éviter les bogues et les effets secondaires.", ar_desc: "احفظ المتغيرات محلية قدر الإمكان لتجنب الأخطاء والآثار الجانبية." },
+    { en: "Use Meaningful Names", fr: "Utilisez des Noms Significatifs", ar: "استخدم أسماء ذات مغزى", en_desc: "Choose variable and function names that clearly describe their purpose.", fr_desc: "Choisissez des noms de variables et de fonctions qui décrivent clairement leur objectif.", ar_desc: "اختر أسماء المتغيرات والدوال التي تصف بوضوح غرضها." },
+    { en: "Test Your Code", fr: "Testez Votre Code", ar: "اختبر أكوادك", en_desc: "Write unit tests to catch bugs early and ensure code reliability.", fr_desc: "Écrivez des tests unitaires pour détecter les bogues tôt et assurer la fiabilité du code.", ar_desc: "اكتب اختبارات الوحدة لاكتشاف الأخطاء مبكراً وضمان موثوقية الأكواد." },
+    { en: "Handle Exceptions Properly", fr: "Gérez les Exceptions Correctement", ar: "تعامل مع الاستثناءات بشكل صحيح", en_desc: "Use try-except blocks to handle errors gracefully without crashes.", fr_desc: "Utilisez les blocs try-except pour gérer les erreurs avec élégance sans plantage.", ar_desc: "استخدم كتل try-except للتعامل مع الأخطاء بدون تعطل البرنامج." },
+    { en: "Use Built-in Functions", fr: "Utilisez les Fonctions Intégrées", ar: "استخدم الدوال المدمجة", en_desc: "Leverage Python's powerful built-in functions instead of writing from scratch.", fr_desc: "Tirez parti des puissantes fonctions intégrées de Python au lieu d'écrire à partir de zéro.", ar_desc: "استفد من دوال بايثون المدمجة القوية بدلاً من كتابتها من الصفر." },
+    { en: "Optimize Performance", fr: "Optimisez les Performances", ar: "حسّن الأداء", en_desc: "Profile your code and use efficient algorithms to improve speed.", fr_desc: "Profilez votre code et utilisez des algorithmes efficaces pour améliorer la vitesse.", ar_desc: "قيّم أكوادك واستخدم خوارزميات فعالة لتحسين السرعة." }
+];
 
 const colors = ['color-1', 'color-2', 'color-3', 'color-4'];
 
-function renderTips() {
+function renderTips(items = tipsContent) {
     const tipsDiv = document.getElementById('tips');
     if (!tipsDiv) return;
-    
-    const tipsList = tips[currentLanguage];
-    tipsDiv.innerHTML = tipsList.map((tip, idx) => `
-        <div class="term-item">
-            <div class="term-header">
-                <div class="term-number ${colors[idx % 4]}">💡</div>
-                <h2 class="term-name">${tip.title}</h2>
+
+    tipsDiv.innerHTML = items.map((item, idx) => {
+        const lang = currentLanguage;
+        const title = item[lang];
+        const desc = item[`${lang}_desc`];
+        return `
+            <div class="term-item">
+                <div class="term-header">
+                    <div class="term-number ${colors[idx % 4]}">${idx + 1}</div>
+                    <h2 class="term-name">${title}</h2>
+                </div>
+                <p class="term-definition">${desc}</p>
             </div>
-            <p class="term-definition">${tip.desc}</p>
-        </div>
-    `).join('');
+        `;
+    }).join('');
 }
 
 renderTips();
