@@ -1,4 +1,4 @@
-let currentLanguage = 'en';
+let currentLanguage = localStorage.getItem('niзarLanguage') || 'en';
 
 const tutorials = {
     en: [
@@ -49,6 +49,8 @@ const colors = ['color-1', 'color-2', 'color-3', 'color-4'];
 
 function renderTutorials() {
     const tutorialsDiv = document.getElementById('tutorials');
+    if (!tutorialsDiv) return;
+    
     const tutList = tutorials[currentLanguage];
     tutorialsDiv.innerHTML = tutList.map((tut, idx) => `
         <div class="term-item">
@@ -60,48 +62,5 @@ function renderTutorials() {
         </div>
     `).join('');
 }
-
-function changeLanguage(lang) {
-    currentLanguage = lang;
-    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-    event.target.classList.add('active');
-    renderTutorials();
-}
-
-let currentZoom = 100;
-
-function updateZoom() {
-    document.body.style.zoom = currentZoom + '%';
-    document.getElementById('zoomLevel').textContent = currentZoom + '%';
-}
-
-document.getElementById('zoomIn')?.addEventListener('click', () => {
-    if (currentZoom < 200) {
-        currentZoom += 10;
-        updateZoom();
-    }
-});
-
-document.getElementById('zoomOut')?.addEventListener('click', () => {
-    if (currentZoom > 50) {
-        currentZoom -= 10;
-        updateZoom();
-    }
-});
-
-window.addEventListener('scroll', () => {
-    const scrollBtn = document.getElementById('scrollToTop');
-    if (scrollBtn) {
-        if (window.pageYOffset > 300) {
-            scrollBtn.classList.add('show');
-        } else {
-            scrollBtn.classList.remove('show');
-        }
-    }
-});
-
-document.getElementById('scrollToTop')?.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-});
 
 renderTutorials();
