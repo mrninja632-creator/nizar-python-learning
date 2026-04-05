@@ -1,33 +1,32 @@
-let currentZoom = 100;
-let currentLanguage = 'en';
+let currentLanguage = localStorage.getItem('niзarLanguage') || 'en';
+let currentZoom = parseInt(localStorage.getItem('niзarZoom')) || 100;
 
 function updateZoom() {
     document.body.style.zoom = currentZoom + '%';
-    document.getElementById('zoomLevel').textContent = currentZoom + '%';
+    const zoomLevel = document.getElementById('zoomLevel');
+    if (zoomLevel) zoomLevel.textContent = currentZoom + '%';
     localStorage.setItem('niзarZoom', currentZoom);
 }
 
-function changeLanguage(lang) {
-    currentLanguage = lang;
-    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-    event.target.classList.add('active');
-    localStorage.setItem('niзarLanguage', lang);
-    location.reload();
+const zoomIn = document.getElementById('zoomIn');
+if (zoomIn) {
+    zoomIn.addEventListener('click', () => {
+        if (currentZoom < 200) {
+            currentZoom += 10;
+            updateZoom();
+        }
+    });
 }
 
-document.getElementById('zoomIn') ? .addEventListener('click', () => {
-    if (currentZoom < 200) {
-        currentZoom += 10;
-        updateZoom();
-    }
-});
-
-document.getElementById('zoomOut') ? .addEventListener('click', () => {
-    if (currentZoom > 50) {
-        currentZoom -= 10;
-        updateZoom();
-    }
-});
+const zoomOut = document.getElementById('zoomOut');
+if (zoomOut) {
+    zoomOut.addEventListener('click', () => {
+        if (currentZoom > 50) {
+            currentZoom -= 10;
+            updateZoom();
+        }
+    });
+}
 
 window.addEventListener('scroll', () => {
     const scrollBtn = document.getElementById('scrollToTop');
@@ -40,18 +39,19 @@ window.addEventListener('scroll', () => {
     }
 });
 
-document.getElementById('scrollToTop') ? .addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-});
-
-const savedZoom = localStorage.getItem('niзarZoom');
-if (savedZoom) {
-    currentZoom = parseInt(savedZoom);
-    updateZoom();
+const scrollToTop = document.getElementById('scrollToTop');
+if (scrollToTop) {
+    scrollToTop.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
 }
 
-currentLanguage = localStorage.getItem('niзarLanguage') || 'en';
-const langBtn = document.querySelector(`button[onclick="changeLanguage('${currentLanguage}')"]`);
-if (langBtn) {
-    langBtn.classList.add('active');
+function changeLanguage(lang) {
+    currentLanguage = lang;
+    localStorage.setItem('niзarLanguage', lang);
+    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+    if (event && event.target) event.target.classList.add('active');
+    location.reload();
 }
+
+updateZoom();
